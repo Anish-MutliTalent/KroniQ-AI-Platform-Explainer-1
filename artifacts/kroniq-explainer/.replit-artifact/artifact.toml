@@ -1,0 +1,31 @@
+kind = "video"
+previewPath = "/kroniq-explainer/"
+title = "KroniQ Explainer Video"
+version = "1.0.0"
+id = "artifacts/kroniq-explainer"
+router = "path"
+
+[[integratedSkills]]
+name = "video-js"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/kroniq-explainer/" ]
+localPort = 21465
+
+[services.development]
+run = "pnpm --filter @workspace/kroniq-explainer run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/kroniq-explainer", "run", "build" ]
+publicDir = "artifacts/kroniq-explainer/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "21465"
+BASE_PATH = "/kroniq-explainer/"

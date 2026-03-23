@@ -1,22 +1,22 @@
 import { motion } from 'framer-motion';
 
 const allModels = [
-  { name: "GPT-4o", cat: "Text" },
-  { name: "Claude 3.5 Sonnet", cat: "Text" },
-  { name: "Gemini 2.0 Flash", cat: "Text" },
-  { name: "Llama 3.3", cat: "Text" },
-  { name: "Mixtral", cat: "Text" },
-  { name: "Qwen 2.5", cat: "Text" },
-  { name: "DeepSeek V3", cat: "Text" },
-  { name: "Phi-4", cat: "Text" },
-  { name: "Grok 2", cat: "Text" },
-  { name: "Command R+", cat: "Text" },
-  { name: "DALL·E 3", cat: "Image" },
-  { name: "Stable Diffusion", cat: "Image" },
-  { name: "Suno", cat: "Audio" },
-  { name: "Udio", cat: "Audio" },
-  { name: "ElevenLabs", cat: "Audio" },
-  { name: "Flux", cat: "Image" }
+  { name: "GPT-5.4", cat: "Text" },
+  { name: "Claude Opus 4.6", cat: "Text" },
+  { name: "Gemini 3.1 High", cat: "Text" },
+  { name: "Llama 4 Maverick", cat: "Text" },
+  { name: "Grok 4.1 Fast", cat: "Text" },
+  { name: "DeepSeek V3.2", cat: "Text" },
+  { name: "Seedream 5", cat: "Image" },
+  { name: "Imagen 4 Ultra", cat: "Image" },
+  { name: "Flux Kontext Max", cat: "Image" },
+  { name: "GPT Image 1.5", cat: "Image" },
+  { name: "NanoBanana Pro", cat: "Image" },
+  { name: "Midjourney V7", cat: "Image" },
+  { name: "Sora 2", cat: "Video" },
+  { name: "Veo 3.1 Quality", cat: "Video" },
+  { name: "Wan 2.6", cat: "Video" },
+  { name: "Kling 3.0", cat: "Video" }
 ];
 
 export function Scene9Models() {
@@ -25,7 +25,7 @@ export function Scene9Models() {
       className="absolute inset-0 flex flex-col items-center justify-center z-10"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      exit={{ opacity: 0, transition: { duration: 0.6 } }}
+      exit={{ opacity: 0, transition: { duration: 0.6 } } as any}
     >
       <div className="absolute top-[10vh] text-center z-20">
         <motion.h2 

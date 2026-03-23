@@ -20,7 +20,7 @@ const codeLines = [
   { text: "create", color: "#61afef", type: "function" },
   { text: "({\n", color: "#ffffff", type: "text" },
   { text: "  model: ", color: "#ffffff", type: "text" },
-  { text: "'claude-3-5-sonnet'", color: "#22c55e", type: "string" },
+  { text: "'claude-opus-4-6'", color: "#22c55e", type: "string" },
   { text: ",\n  messages: [{ role: ", color: "#ffffff", type: "text" },
   { text: "'user'", color: "#22c55e", type: "string" },
   { text: ", content: ", color: "#ffffff", type: "text" },
@@ -49,7 +49,7 @@ export function Scene8Code() {
       className="absolute inset-0 flex flex-col items-center justify-center z-10"
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
-      exit={{ scale: 1.5, opacity: 0, filter: 'blur(30px)', transition: { duration: 0.6 } }}
+      exit={{ scale: 1.5, opacity: 0, filter: 'blur(30px)', transition: { duration: 0.6 } } as any}
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
       <motion.div className="glass-panel w-[60vw] overflow-hidden">

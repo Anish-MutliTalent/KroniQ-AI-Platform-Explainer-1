@@ -1,74 +1,92 @@
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { charContainerVariants, charVariants } from '@/lib/video';
+
+const sleep = (ms: number) => new Promise(r => setTimeout(r, ms));
 
 export function Scene1Hook() {
-  const text1 = "Stop juggling 6 AI tools.";
-  const text2 = "Use one instead.";
+  const [displayText, setDisplayText] = useState('');
+  const [cursorColor, setCursorColor] = useState('#ffffff');
+  const [textColor, setTextColor] = useState('#ffffff');
+
+  useEffect(() => {
+    let isActive = true;
+    const runAnimation = async () => {
+      const text1 = "Stop using 6 different tools.";
+      const text2 = "Use one instead.";
+      
+      await sleep(100);
+
+      // Type first line
+      for (let i = 1; i <= text1.length; i++) {
+        if (!isActive) return;
+        setDisplayText(text1.slice(0, i));
+        await sleep(30);
+      }
+      
+      await sleep(400);
+      
+      // Backspace
+      for (let i = text1.length - 1; i >= 0; i--) {
+        if (!isActive) return;
+        setDisplayText(text1.slice(0, i));
+        await sleep(10);
+      }
+      
+      if (!isActive) return;
+      setCursorColor('#22c55e');
+      setTextColor('#22c55e');
+      await sleep(100);
+      
+      // Type second line
+      for (let i = 1; i <= text2.length; i++) {
+        if (!isActive) return;
+        setDisplayText(text2.slice(0, i));
+        await sleep(30);
+      }
+      
+      await sleep(800);
+      
+      // Backspace second line
+      for (let i = text2.length - 1; i >= 0; i--) {
+        if (!isActive) return;
+        setDisplayText(text2.slice(0, i));
+        await sleep(10);
+      }
+    };
+    
+    runAnimation();
+    return () => { isActive = false; };
+  }, []);
 
   return (
     <motion.div
-      className="absolute inset-0 flex flex-col items-center justify-center z-10"
-      initial={{ clipPath: 'polygon(0 0, 0 0, 0 100%, 0% 100%)' }}
-      animate={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)' }}
-      exit={{ scale: 1.4, opacity: 0, filter: 'blur(40px)', transition: { duration: 0.18, ease: [0.4, 0, 1, 1] } }}
-      transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+      className="absolute inset-0 flex flex-col items-center justify-center z-10 bg-[#050508]"
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ scale: 1.5, opacity: 0, filter: 'blur(30px)', transition: { duration: 0.8, ease: [0.4, 0, 0.2, 1] } } as any}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
     >
-      <div className="text-center px-8 flex flex-col gap-[2vh]">
-        <motion.div
-          className="text-[7.5vw] font-bold font-display leading-[1.05] tracking-[-0.03em] text-white"
-          variants={charContainerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          {text1.split(' ').map((word, wi) => (
-            <span key={wi} className="inline-block mr-[1.8vw] whitespace-nowrap">
-              {word.split('').map((char, ci) => (
-                <motion.span key={ci} variants={charVariants} className="inline-block">
-                  {char}
-                </motion.span>
-              ))}
-            </span>
-          ))}
-        </motion.div>
-
-        <motion.div
-          className="text-[8.5vw] font-bold font-display tracking-[-0.03em] leading-[1.05] text-[#22c55e]"
-          variants={{
-            hidden: {},
-            visible: { transition: { staggerChildren: 0.02, delayChildren: 0.55 } }
-          }}
-          initial="hidden"
-          animate="visible"
-        >
-          {text2.split(' ').map((word, wi) => (
-            <span key={wi} className="inline-block mr-[1.8vw] whitespace-nowrap">
-              {word.split('').map((char, ci) => (
-                <motion.span
-                  key={ci}
-                  variants={{
-                    hidden: { opacity: 0, y: 50, rotateX: -50, transformPerspective: 900 },
-                    visible: {
-                      opacity: 1, y: 0, rotateX: 0, transformPerspective: 900,
-                      transition: { type: 'spring', stiffness: 450, damping: 22 }
-                    }
-                  }}
-                  className="inline-block"
-                >
-                  {char}
-                </motion.span>
-              ))}
-            </span>
-          ))}
-        </motion.div>
-      </div>
-
-      {/* Subtle accent line */}
-      <motion.div
-        className="absolute bottom-[12vh] left-1/2 -translate-x-1/2 h-[2px] bg-gradient-to-r from-transparent via-[#22c55e] to-transparent"
-        initial={{ width: 0, opacity: 0 }}
-        animate={{ width: '30vw', opacity: 0.6 }}
-        transition={{ delay: 1.2, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      />
+      <motion.div 
+        className="flex flex-col items-center justify-center gap-[2vh] w-full h-full"
+        initial={{ scale: 1.05 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 4, ease: "linear" }}
+      >
+        <div className="text-center px-[8vw] flex justify-center items-center h-[20vh]">
+          <h1 
+            className="text-[6vw] font-bold font-display leading-[1.05] tracking-[-0.03em] flex items-center"
+            style={{ color: textColor }}
+          >
+            {displayText}
+            <motion.span 
+              className="inline-block w-[0.8vw] h-[6vw] ml-[0.5vw] translate-y-[0.5vh]"
+              style={{ backgroundColor: cursorColor }}
+              animate={{ opacity: [1, 0] }}
+              transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
+            />
+          </h1>
+        </div>
+      </motion.div>
     </motion.div>
   );
 }

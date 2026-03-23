@@ -2,28 +2,28 @@ import { motion } from 'framer-motion';
 
 const panels = [
   {
-    model: "GPT-4o",
+    model: "GPT-5.4",
     user: "Write a LinkedIn post about our product launch.",
     ai: "🚀 Exciting news! We're thrilled to announce the launch of our new product...\n\nHere are 3 reasons why this will change your workflow:\n1. Seamless integration\n2. Real-time collaboration\n3. Powerful analytics",
     rotate: -2,
     glow: "rgba(34,197,94,0.1)"
   },
   {
-    model: "Claude 3.5",
+    model: "Claude Opus 4.6",
     user: "Summarize this 50-page PDF",
     ai: "Here are the 5 key insights from the document:\n\n• The market is shifting towards unified platforms.\n• Cost consolidation is a top priority for CIOs.\n• Multimodal capabilities drive higher engagement.\n• Security and compliance remain critical.\n• Speed of execution defines market leaders.",
     rotate: 1,
     glow: "rgba(13,31,45,0.3)"
   },
   {
-    model: "Gemini Ultra",
+    model: "Gemini 3.1 High",
     user: "What's the best marketing strategy for a SaaS startup?",
     ai: "A comprehensive SaaS marketing strategy requires a multi-channel approach:\n\n**1. Content-Led SEO**\nBuild authority through high-quality technical content.\n\n**2. Community Building**\nFoster a developer or power-user community.\n\n**3. Product-Led Growth**\nOffer a robust freemium tier with clear upgrade paths.",
     rotate: -1,
     glow: "rgba(10,10,20,0.4)"
   },
   {
-    model: "Llama 3",
+    model: "Llama 4 Maverick",
     user: "Fix this TypeScript error: Property 'x' does not exist",
     ai: "The error occurs because TypeScript doesn't know the shape of your object. You need to define an interface or type for it.\n\n```typescript\ninterface Config {\n  x: number;\n  y: number;\n}\n\nconst obj: Config = { x: 10, y: 20 };\n```",
     rotate: 2,
@@ -37,7 +37,7 @@ export function Scene4ChatPan1() {
       className="absolute inset-0 flex flex-col items-center z-10"
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
-      exit={{ scale: 1.2, opacity: 0, filter: 'blur(20px)', transition: { duration: 0.6 } }}
+      exit={{ scale: 1.2, opacity: 0, filter: 'blur(20px)', transition: { duration: 0.6 } } as any}
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
       <motion.div 

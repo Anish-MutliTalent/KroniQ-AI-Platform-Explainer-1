@@ -1,5 +1,12 @@
 import { motion } from 'framer-motion';
-import { sceneTransitions, staggerConfigs, easings, charContainerVariants, charVariants } from '@/lib/video';
+import { charContainerVariants, charVariants } from '@/lib/video';
+
+const entrance = {
+  initial: { clipPath: 'polygon(0 0, 0 0, 0 100%, 0% 100%)' },
+  animate: { clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)' },
+  exit: { scale: 1.5, opacity: 0, filter: 'blur(30px)' },
+  transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
+};
 
 export function Scene1Hook() {
   const text1 = "Stop juggling 6 AI tools.";
@@ -7,15 +14,15 @@ export function Scene1Hook() {
 
   return (
     <motion.div
-      className="absolute inset-0 flex flex-col items-center justify-center bg-transparent z-10"
-      variants={sceneTransitions.wipe}
+      className="absolute inset-0 flex flex-col items-center justify-center z-10"
       initial="initial"
       animate="animate"
       exit="exit"
+      variants={entrance}
     >
-      <div className="text-center px-8">
+      <div className="text-center px-8 flex flex-col gap-4">
         <motion.div
-          className="text-[6vw] font-bold font-display leading-tight tracking-tight text-white mb-4"
+          className="text-[7vw] font-bold font-display leading-tight tracking-tight text-white"
           variants={charContainerVariants}
           initial="hidden"
           animate="visible"
@@ -36,12 +43,33 @@ export function Scene1Hook() {
         </motion.div>
         
         <motion.div
-          className="text-[7vw] font-bold font-display text-gradient-accent mt-4"
-          initial={{ opacity: 0, scale: 0.8, filter: 'blur(10px)' }}
-          animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-          transition={{ delay: 1.5, duration: 0.8, ease: easings.easeOut.ease }}
+          className="text-[8vw] font-bold font-display text-[#22c55e]"
+          variants={charContainerVariants}
+          initial="hidden"
+          animate="visible"
         >
-          {text2}
+           {text2.split(' ').map((word, wordIndex) => (
+            <span key={`word2-${wordIndex}`} className="inline-block mr-[2vw] whitespace-nowrap">
+              {word.split('').map((char, charIndex) => (
+                <motion.span
+                  key={`char2-${charIndex}`}
+                  variants={{
+                    hidden: { opacity: 0, y: 40, rotateX: -40, transformPerspective: 800 },
+                    visible: {
+                      opacity: 1,
+                      y: 0,
+                      rotateX: 0,
+                      transformPerspective: 800,
+                      transition: { type: 'spring', stiffness: 400, damping: 25, delay: 0.8 + (wordIndex * 0.1) + (charIndex * 0.02) }
+                    }
+                  }}
+                  className="inline-block"
+                >
+                  {char}
+                </motion.span>
+              ))}
+            </span>
+          ))}
         </motion.div>
       </div>
     </motion.div>

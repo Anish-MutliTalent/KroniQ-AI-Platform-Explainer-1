@@ -1,63 +1,31 @@
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 import { useVideoPlayer } from '@/lib/video';
+import { PersistentBackground } from './PersistentBackground';
 import { Scene1Hook } from './scenes/Scene1Hook';
 import { Scene2Competitors } from './scenes/Scene2Competitors';
-import { Scene3Logo } from './scenes/Scene3Logo';
-import { Scene4Features } from './scenes/Scene4Features';
-import { Scene5Counters } from './scenes/Scene5Counters';
-import { Scene6CTA } from './scenes/Scene6CTA';
+import { Scene3KroniQ } from './scenes/Scene3KroniQ';
+import { Scene4ChatPan1 } from './scenes/Scene4ChatPan1';
+import { Scene5ChatPan2 } from './scenes/Scene5ChatPan2';
+import { Scene6Images } from './scenes/Scene6Images';
+import { Scene7Music } from './scenes/Scene7Music';
+import { Scene8Code } from './scenes/Scene8Code';
+import { Scene9Models } from './scenes/Scene9Models';
+import { Scene10Counters } from './scenes/Scene10Counters';
+import { Scene11CTA } from './scenes/Scene11CTA';
 
 const SCENE_DURATIONS = {
-  hook: 3000,
-  competitors: 5000,
-  logo: 3000,
-  features: 8000,
-  counters: 4000,
-  cta: 3000,
+  hook: 4000,
+  competitors: 6000,
+  kroniq_intro: 4000,
+  chat_pan_1: 8000,
+  chat_pan_2: 7000,
+  features_images: 5000,
+  features_music: 5000,
+  features_code: 6000,
+  models_showcase: 6000,
+  counters: 5000,
+  cta: 6000,
 };
-
-function PersistentBackground() {
-  return (
-    <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-      <motion.div 
-        className="absolute inset-0 opacity-20"
-        animate={{
-          background: [
-            'radial-gradient(circle at 20% 30%, rgba(34, 197, 94, 0.15) 0%, transparent 50%)',
-            'radial-gradient(circle at 80% 70%, rgba(34, 197, 94, 0.15) 0%, transparent 50%)',
-            'radial-gradient(circle at 20% 30%, rgba(34, 197, 94, 0.15) 0%, transparent 50%)'
-          ]
-        }}
-        transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-      />
-      {/* Drifting geometric shapes */}
-      {[...Array(12)].map((_, i) => (
-        <motion.div
-          key={i}
-          className="absolute rounded-full"
-          style={{
-            width: Math.random() * 100 + 20,
-            height: Math.random() * 100 + 20,
-            background: 'rgba(34, 197, 94, 0.03)',
-            left: `${Math.random() * 100}vw`,
-            top: `${Math.random() * 100}vh`,
-          }}
-          animate={{
-            y: [0, -200, 0],
-            x: [0, Math.random() * 100 - 50, 0],
-            scale: [1, 1.2, 1],
-            rotate: [0, 180, 360],
-          }}
-          transition={{
-            duration: Math.random() * 10 + 10,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-        />
-      ))}
-    </div>
-  );
-}
 
 export default function VideoTemplate() {
   const { currentScene } = useVideoPlayer({
@@ -67,17 +35,22 @@ export default function VideoTemplate() {
   return (
     <div
       className="w-full h-screen overflow-hidden relative"
-      style={{ backgroundColor: '#0a0a0a' }}
+      style={{ backgroundColor: '#050508' }}
     >
       <PersistentBackground />
       
       <AnimatePresence mode="wait">
         {currentScene === 0 && <Scene1Hook key="scene1" />}
         {currentScene === 1 && <Scene2Competitors key="scene2" />}
-        {currentScene === 2 && <Scene3Logo key="scene3" />}
-        {currentScene === 3 && <Scene4Features key="scene4" />}
-        {currentScene === 4 && <Scene5Counters key="scene5" />}
-        {currentScene === 5 && <Scene6CTA key="scene6" />}
+        {currentScene === 2 && <Scene3KroniQ key="scene3" />}
+        {currentScene === 3 && <Scene4ChatPan1 key="scene4" />}
+        {currentScene === 4 && <Scene5ChatPan2 key="scene5" />}
+        {currentScene === 5 && <Scene6Images key="scene6" />}
+        {currentScene === 6 && <Scene7Music key="scene7" />}
+        {currentScene === 7 && <Scene8Code key="scene8" />}
+        {currentScene === 8 && <Scene9Models key="scene9" />}
+        {currentScene === 9 && <Scene10Counters key="scene10" />}
+        {currentScene === 10 && <Scene11CTA key="scene11" />}
       </AnimatePresence>
     </div>
   );

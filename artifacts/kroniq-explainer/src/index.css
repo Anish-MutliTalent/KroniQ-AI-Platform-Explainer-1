@@ -8,7 +8,7 @@
 
   --color-bg-light: #000000;
   --color-bg-dark: #050508;
-  --color-bg-muted: #171717;
+  --color-bg-muted: #0d0d12;
 
   --color-text-primary: #ffffff;
   --color-text-secondary: #a1a1aa;
@@ -51,23 +51,119 @@ body {
   color: var(--color-text-primary);
 }
 
+/* ═══════════════════════════════════════════
+   iOS TAHOE LIQUID GLASS SIMULATION
+   Real specular lighting, refraction, depth
+═══════════════════════════════════════════ */
+
+.glass-panel {
+  position: relative;
+  backdrop-filter: blur(60px) saturate(210%) brightness(1.08);
+  -webkit-backdrop-filter: blur(60px) saturate(210%) brightness(1.08);
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.11) 0%,
+    rgba(255, 255, 255, 0.04) 45%,
+    rgba(255, 255, 255, 0.07) 100%
+  );
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow:
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.45),
+    inset 1px 0 0 rgba(255, 255, 255, 0.18),
+    inset -1px 0 0 rgba(255, 255, 255, 0.06),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.35),
+    0 30px 80px rgba(0, 0, 0, 0.75),
+    0 8px 24px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+}
+
+/* Primary specular highlight — light catch from upper-left */
+.glass-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    130deg,
+    rgba(255, 255, 255, 0.28) 0%,
+    rgba(255, 255, 255, 0.10) 18%,
+    rgba(255, 255, 255, 0.03) 38%,
+    transparent 55%,
+    rgba(255, 255, 255, 0.02) 100%
+  );
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Refraction depth layer — subtle bottom darkening */
+.glass-panel::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.04) 0%,
+    transparent 35%,
+    rgba(0, 0, 0, 0.18) 100%
+  );
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Input field glass variant */
+.glass-input {
+  position: relative;
+  backdrop-filter: blur(30px) saturate(180%);
+  -webkit-backdrop-filter: blur(30px) saturate(180%);
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(255, 255, 255, 0.03) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 14px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+    0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.glass-input::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    130deg,
+    rgba(255, 255, 255, 0.16) 0%,
+    rgba(255, 255, 255, 0.04) 30%,
+    transparent 60%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Accent glow glass — for highlighted panels */
+.glass-accent {
+  background: linear-gradient(
+    145deg,
+    rgba(34, 197, 94, 0.18) 0%,
+    rgba(34, 197, 94, 0.06) 50%,
+    rgba(34, 197, 94, 0.10) 100%
+  );
+  border: 1px solid rgba(34, 197, 94, 0.35);
+  box-shadow:
+    inset 0 1.5px 0 rgba(34, 197, 94, 0.4),
+    0 0 40px rgba(34, 197, 94, 0.15),
+    0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
 .text-gradient-accent {
   background: linear-gradient(135deg, #4ade80, #22c55e);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-}
-
-.glass-panel {
-  backdrop-filter: blur(40px) saturate(180%);
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 20px;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 30px 80px rgba(0, 0, 0, 0.6);
-}
-
-.glass-input {
-  backdrop-filter: blur(20px);
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
+  background-clip: text;
 }
